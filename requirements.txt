@@ -1,7 +1,8 @@
 Flask==2.3.3
-pandas==2.2.2
+pandas==2.2.3
 scikit-learn==1.4.2
-requests
-gunicorn
-python-dotenv
+requests==2.32.3
+gunicorn==20.1.0
+python-dotenv==1.0.1
+
 
