@@ -46,18 +46,18 @@ cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
 title_to_index = pd.Series(movies_df.index, index=movies_df['title']).drop_duplicates()
 
 
-def fetch_poster(title):
+def fetch_poster(movie_id):
     try:
-        url = f"https://api.themoviedb.org/3/search/movie?api_key={TMDB_API_KEY}&query={title}"
-        response = requests.get(url, timeout=5)
+        url = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key=8265bd1679663a7ea12ac168da84d2e8&language=en-US"
+        response = requests.get(url)
         data = response.json()
-
-        if data.get('results') and len(data['results']) > 0:
-            return data['results'][0].get('poster_path')  # Just the path like /abc.jpg
+        poster_path = data.get('poster_path')
+        if poster_path:
+            return f"https://image.tmdb.org/t/p/w500{poster_path}"
     except Exception as e:
-        print("Error fetching poster:", e)
+        print("Poster fetch error:", e)
+    return "https://via.placeholder.com/500x750?text=No+Image"
 
-    return None
 
 def get_recommendations(title, cosine_sim=cosine_sim):
     idx = title_to_index.get(title)
@@ -72,17 +72,19 @@ def get_recommendations(title, cosine_sim=cosine_sim):
 
     for i, _ in sim_scores:
         movie_title = movies_df['title'].iloc[i]
+        movie_id = movies_df['id'].iloc[i]  # Get movie ID
         if movie_title != title and movie_title not in seen_titles:
-            poster_path = fetch_poster(movie_title)
+            poster_url = fetch_poster(movie_id)
             recommendations.append({
                 'title': movie_title,
-                'poster_path': poster_path
+                'poster_path': poster_url
             })
             seen_titles.add(movie_title)
         if len(recommendations) == 5:
             break
 
     return recommendations
+
 
 
 
