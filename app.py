@@ -18,7 +18,8 @@ TMDB_API_KEY = os.getenv("TMDB_API_KEY")
 
 
 movies_df = pd.read_csv('tmdb_5000_movies.csv')
-credits_df = pd.read_csv('tmdb_5000_credits.csv')
+url = 'https://drive.google.com/file/d/1Khowx_7RxrPhr2yyc312CZFHJZ6sU1pG/view?usp=sharing'
+credits_df = pd.read_csv(url)
 
 
 movies_df = movies_df.merge(credits_df[['title', 'cast', 'crew']], on='title', how='left')
