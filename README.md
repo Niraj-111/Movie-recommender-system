@@ -6,8 +6,8 @@ A Machine Learning & Flask web app that recommends similar movies based on conte
 
 ## 🚀 Demo
 
-You can try the web app here 👉 **Render Demo**: [https://movie-recommender-system-8-a4u2.onrender.com]  
-*(Replace with your actual Render link)*
+You can try the web app here 👉 **Render Demo**:  *(https://movie-recommender-system-8-a4u2.onrender.com)*
+
 
 ---
 
